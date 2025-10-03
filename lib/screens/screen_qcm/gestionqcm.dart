@@ -23,12 +23,79 @@ class _CodeQCMState extends State<CodeQCM> {
     } else {
       return 'random';
     }
+    // A compléter pour ajouter les autres catégories
   }
 
   // Change l'état de la variable randomQuestion pour activer ou désactiver les questions aléatoires
   void categorieRadom() {
     setState(() {
       randomQuestion = !randomQuestion;
+    });
+  }
+
+  void categorieSignalisation() {
+    setState(() {
+      randomQuestion = true;
+    });
+  }
+
+  void categorieTheorique() {
+    setState(() {
+      randomQuestion = false;
+    });
+  }
+
+  void categoriePriorites() {
+    setState(() {
+      randomQuestion = true;
+    });
+  }
+
+  void categorieComportement() {
+    setState(() {
+      randomQuestion = true;
+    });
+  }
+
+  void categorieSecurite() {
+    setState(() {
+      randomQuestion = true;
+    });
+  }
+
+  void categorieVitesse() {
+    setState(() {
+      randomQuestion = true;
+    });
+  }
+
+  void categorieStationnement() {
+    setState(() {
+      randomQuestion = true;
+    });
+  }
+
+  void categorie() {
+    setState(() {
+      randomQuestion = true;
+    });
+  }
+
+  void categorieReglesdiverses() {
+    setState(() {
+      randomQuestion = true;
+    });
+  }
+
+  void categorieConditionsmeteo() {
+    setState(() {
+      randomQuestion = true;
+    });
+  }
+
+  void categorieVehicule() {
+    setState(() {
+      randomQuestion = true;
     });
   }
 
