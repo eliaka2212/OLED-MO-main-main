@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobil_cds49/main.dart';
 import 'package:mobil_cds49/services/api/gestionUsr/usr_api.dart';
+import 'package:mobil_cds49/screens/screen_inscription/inscription.dart';
 
 // Ecran de connexion pour les utilisateurs
 class LoginUtilisateur extends StatefulWidget {
@@ -90,6 +91,16 @@ class _LoginUtilisateurState extends State<LoginUtilisateur> {
             ),
             SizedBox(height: 20),
             ElevatedButton(onPressed: _login, child: Text('Se connecter')),
+            SizedBox(height: 12),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Inscription()),
+                );
+              },
+              child: Text('S\'inscrire'),
+            ),
           ],
         ),
       ),

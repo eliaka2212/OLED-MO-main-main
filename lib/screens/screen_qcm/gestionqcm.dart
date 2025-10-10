@@ -22,8 +22,9 @@ class _CodeQCMState extends State<CodeQCM> {
   void initState() {
     super.initState();
     dropdownItems = dropdownValues
-        .map((value) =>
-            DropdownMenuItem<int>(value: value, child: Text('$value')))
+        .map(
+          (value) => DropdownMenuItem<int>(value: value, child: Text('$value')),
+        )
         .toList();
   }
 
@@ -31,8 +32,7 @@ class _CodeQCMState extends State<CodeQCM> {
   String selectCategorie() => selectedCategory;
 
   // Méthode pour construire chaque carte de catégorie
-  Widget _buildCategoryCard(
-      String title, IconData icon, String categoryKey) {
+  Widget _buildCategoryCard(String title, IconData icon, String categoryKey) {
     bool isSelected = selectedCategory == categoryKey;
 
     return GestureDetector(
@@ -56,7 +56,7 @@ class _CodeQCMState extends State<CodeQCM> {
               color: Colors.black12,
               blurRadius: 6,
               offset: Offset(0, 3),
-            )
+            ),
           ],
         ),
         child: Column(
@@ -93,8 +93,7 @@ class _CodeQCMState extends State<CodeQCM> {
                 padding: EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    Text('Nombre de questions',
-                        style: TextStyle(fontSize: 18)),
+                    Text('Nombre de questions', style: TextStyle(fontSize: 18)),
                     DropdownButton<int>(
                       value: selectedNumber,
                       items: dropdownItems,
@@ -121,25 +120,56 @@ class _CodeQCMState extends State<CodeQCM> {
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 children: [
                   _buildCategoryCard(
-                      'Aléatoire', FontAwesomeIcons.shuffle, 'random'),
+                    'Aléatoire',
+                    FontAwesomeIcons.shuffle,
+                    'random',
+                  ),
                   _buildCategoryCard(
-                      'Signalisation', FontAwesomeIcons.road, 'signalisation'),
+                    'Signalisation',
+                    FontAwesomeIcons.road,
+                    'Signalisation',
+                  ),
                   _buildCategoryCard(
-                      'Théorique', FontAwesomeIcons.book, 'theorique'),
+                    'Priorités',
+                    FontAwesomeIcons.book,
+                    'Priorités',
+                  ),
                   _buildCategoryCard(
-                      'Priorités', FontAwesomeIcons.trafficLight, 'priorites'),
+                    'Comportement',
+                    FontAwesomeIcons.trafficLight,
+                    'Comportement',
+                  ),
                   _buildCategoryCard(
-                      'Sécurité', FontAwesomeIcons.shield, 'securite'),
+                    'Sécurité',
+                    FontAwesomeIcons.shield,
+                    'securite',
+                  ),
                   _buildCategoryCard(
-                      'Vitesse', FontAwesomeIcons.tachographDigital, 'vitesse'),
+                    'Vitesse',
+                    FontAwesomeIcons.tachographDigital,
+                    'Vitesse',
+                  ),
                   _buildCategoryCard(
-                      'Stationnement', FontAwesomeIcons.car, 'stationnement'),
+                    'Stationnement',
+                    FontAwesomeIcons.car,
+                    'Stationnement',
+                  ),
+
                   _buildCategoryCard(
-                      'Conditions météo', FontAwesomeIcons.cloudRain, 'meteo'),
+                    'Règles diverses',
+                    FontAwesomeIcons.gavel,
+                    'Règles diverses',
+                  ),
                   _buildCategoryCard(
-                      'Règles diverses', FontAwesomeIcons.gavel, 'diverses'),
+                    'Conditions météo',
+                    FontAwesomeIcons.cloudRain,
+                    'Conditions météo',
+                  ),
                   _buildCategoryCard(
-                      'Véhicule', FontAwesomeIcons.carRear, 'vehicule'),
+                    'Véhicule',
+                    FontAwesomeIcons.carRear,
+                    'Véhicule',
+                  ),
                 ],
               ),
             ),
