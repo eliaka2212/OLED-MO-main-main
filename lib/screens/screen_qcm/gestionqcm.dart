@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mobil_cds49/screens/screen_qcm/affichageqcm.dart';
 
-// Ecran permettant de sélectionner le nombre de questions et la catégorie pour un QCM
+// Écran permettant de sélectionner le nombre de questions et la catégorie pour un QCM
 class CodeQCM extends StatefulWidget {
   final void Function(Widget)? onNavigate;
   const CodeQCM({super.key, this.onNavigate});
@@ -12,106 +12,67 @@ class CodeQCM extends StatefulWidget {
 }
 
 class _CodeQCMState extends State<CodeQCM> {
-  // Nombre de questions par défault
   int selectedNumber = 40;
-  bool randomQuestion = true;
+  String selectedCategory = 'random';
 
-  // Sélectionne la catégorie de questions
-  String selectCategorie() {
-    if (randomQuestion) {
-      return 'random';
-    } else {
-      return 'random';
-    }
-    // A compléter pour ajouter les autres catégories
-  }
-
-  // Change l'état de la variable randomQuestion pour activer ou désactiver les questions aléatoires
-  void categorieRadom() {
-    setState(() {
-      randomQuestion = !randomQuestion;
-    });
-  }
-
-  void categorieSignalisation() {
-    setState(() {
-      randomQuestion = true;
-    });
-  }
-
-  void categorieTheorique() {
-    setState(() {
-      randomQuestion = false;
-    });
-  }
-
-  void categoriePriorites() {
-    setState(() {
-      randomQuestion = true;
-    });
-  }
-
-  void categorieComportement() {
-    setState(() {
-      randomQuestion = true;
-    });
-  }
-
-  void categorieSecurite() {
-    setState(() {
-      randomQuestion = true;
-    });
-  }
-
-  void categorieVitesse() {
-    setState(() {
-      randomQuestion = true;
-    });
-  }
-
-  void categorieStationnement() {
-    setState(() {
-      randomQuestion = true;
-    });
-  }
-
-  void categorie() {
-    setState(() {
-      randomQuestion = true;
-    });
-  }
-
-  void categorieReglesdiverses() {
-    setState(() {
-      randomQuestion = true;
-    });
-  }
-
-  void categorieConditionsmeteo() {
-    setState(() {
-      randomQuestion = true;
-    });
-  }
-
-  void categorieVehicule() {
-    setState(() {
-      randomQuestion = true;
-    });
-  }
-
-  // Liste des valeurs pour la dropdown de sélection du nombre de questions
   final dropdownValues = [0, 10, 20, 30, 40];
   late final List<DropdownMenuItem<int>> dropdownItems;
 
-  // Initialise la liste des dropdown items à partir des valeurs définies
   @override
   void initState() {
     super.initState();
     dropdownItems = dropdownValues
-        .map(
-          (value) => DropdownMenuItem<int>(value: value, child: Text('$value')),
-        )
+        .map((value) =>
+            DropdownMenuItem<int>(value: value, child: Text('$value')))
         .toList();
+  }
+
+  // Détermine la catégorie choisie
+  String selectCategorie() => selectedCategory;
+
+  // Méthode pour construire chaque carte de catégorie
+  Widget _buildCategoryCard(
+      String title, IconData icon, String categoryKey) {
+    bool isSelected = selectedCategory == categoryKey;
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedCategory = categoryKey;
+        });
+      },
+      child: Container(
+        width: 120,
+        margin: EdgeInsets.only(right: 12),
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: isSelected ? Colors.orange[100] : Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: isSelected
+              ? Border.all(color: Colors.orange, width: 2)
+              : Border.all(color: Colors.grey.shade300),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 6,
+              offset: Offset(0, 3),
+            )
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 30, color: Colors.orange),
+            SizedBox(height: 10),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -123,19 +84,20 @@ class _CodeQCMState extends State<CodeQCM> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Chevrollier Drivins School', style: TextStyle(fontSize: 22)),
-            // Gestion du nombre de questions
+            Text('Chevrollier Driving School', style: TextStyle(fontSize: 22)),
+
+            // Carte pour sélectionner le nombre de questions
             Card(
               margin: EdgeInsets.all(16),
               child: Padding(
                 padding: EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    Text('Nombre de questions', style: TextStyle(fontSize: 18)),
+                    Text('Nombre de questions',
+                        style: TextStyle(fontSize: 18)),
                     DropdownButton<int>(
                       value: selectedNumber,
                       items: dropdownItems,
-                      // Affiche la valeur selectionnée par l'utilisateur
                       onChanged: (value) {
                         setState(() {
                           selectedNumber = value!;
@@ -147,47 +109,44 @@ class _CodeQCMState extends State<CodeQCM> {
                 ),
               ),
             ),
-            // Gestion de la catégorie de questions
-            SizedBox(height: 64),
-            InkWell(
-              onTap: categorieRadom,
-              borderRadius: BorderRadius.circular(12),
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 200),
-                curve: Curves.easeInOut,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: randomQuestion ? 8 : 2,
-                      offset: Offset(0, randomQuestion ? 4 : 1),
-                    ),
-                  ],
-                  color: Theme.of(context).cardColor,
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 32, horizontal: 40),
-                  child: Column(
-                    children: [
-                      Icon(FontAwesomeIcons.shuffle, size: 40),
-                      Text(
-                        'Questions aléatoire',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 16),
-                    ],
-                  ),
-                ),
+
+            // Espacement
+            SizedBox(height: 32),
+
+            // Liste horizontale des catégories
+            SizedBox(
+              height: 135,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                children: [
+                  _buildCategoryCard(
+                      'Aléatoire', FontAwesomeIcons.shuffle, 'random'),
+                  _buildCategoryCard(
+                      'Signalisation', FontAwesomeIcons.road, 'signalisation'),
+                  _buildCategoryCard(
+                      'Théorique', FontAwesomeIcons.book, 'theorique'),
+                  _buildCategoryCard(
+                      'Priorités', FontAwesomeIcons.trafficLight, 'priorites'),
+                  _buildCategoryCard(
+                      'Sécurité', FontAwesomeIcons.shield, 'securite'),
+                  _buildCategoryCard(
+                      'Vitesse', FontAwesomeIcons.tachographDigital, 'vitesse'),
+                  _buildCategoryCard(
+                      'Stationnement', FontAwesomeIcons.car, 'stationnement'),
+                  _buildCategoryCard(
+                      'Conditions météo', FontAwesomeIcons.cloudRain, 'meteo'),
+                  _buildCategoryCard(
+                      'Règles diverses', FontAwesomeIcons.gavel, 'diverses'),
+                  _buildCategoryCard(
+                      'Véhicule', FontAwesomeIcons.carRear, 'vehicule'),
+                ],
               ),
             ),
-            //Espace entre les éléments
-            SizedBox(height: 24),
-            SizedBox(height: 24),
-            SizedBox(height: 24),
-            // Bouton pour valider la sélection et naviguer vers l'écran de QCM
+
+            SizedBox(height: 32),
+
+            // Bouton Valider
             ElevatedButton(
               onPressed: () {
                 widget.onNavigate?.call(
