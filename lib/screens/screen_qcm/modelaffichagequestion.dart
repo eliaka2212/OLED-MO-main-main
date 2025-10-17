@@ -1,13 +1,12 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mobil_cds49/models/questionavecreponse.dart';
 import 'package:mobil_cds49/models/reponse.dart';
 import 'package:mobil_cds49/services/api/config.dart';
 
-// Affiche une question avec ses réponses
-
 class QuestionWidget extends StatefulWidget {
   final QuestionAvecReponses questionData;
-  final VoidCallback onNext;  
+  final VoidCallback onNext;
   final Function(List<Reponse>) onNextWithReponses;
 
   const QuestionWidget({
@@ -16,22 +15,42 @@ class QuestionWidget extends StatefulWidget {
     required this.onNext,
     required this.onNextWithReponses,
   });
-  
+
   @override
   State<QuestionWidget> createState() => _QuestionWidgetState();
 }
 
 class _QuestionWidgetState extends State<QuestionWidget> {
   late List<bool> _selections;
-  
+  Timer? _timer;
+  int _timeLeft = 20;
+
   @override
   void initState() {
     super.initState();
-    _selections = List.generate(widget.questionData.reponses.length, (_) => false);
+    _selections = List.generate(
+      widget.questionData.reponses.length,
+      (_) => false,
+    );
+    _startTimer();
   }
-  
 
-  // Récupère les réponses cochées
+  void _startTimer() {
+    _timer?.cancel();
+    _timeLeft = 20;
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_timeLeft == 0) {
+        timer.cancel();
+        final reponsesCochees = getReponsesSelect();
+        widget.onNextWithReponses(reponsesCochees);
+      } else {
+        setState(() {
+          _timeLeft--;
+        });
+      }
+    });
+  }
+
   List<Reponse> getReponsesSelect() {
     final reponses = widget.questionData.reponses;
     return List.generate(reponses.length, (index) {
@@ -41,20 +60,28 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   }
 
   @override
-  // Met à jour les cases à cocher si la question change (RAZ des sélections)
   void didUpdateWidget(covariant QuestionWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.questionData != widget.questionData) {
-        _selections = List.generate(widget.questionData.reponses.length, (_) => false);
+      _selections = List.generate(
+        widget.questionData.reponses.length,
+        (_) => false,
+      );
+      _startTimer(); // Redémarre le timer pour la nouvelle question
     }
   }
 
+  @override
+  void dispose() {
+    _timer?.cancel(); // Libère les ressources
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final question = widget.questionData.question;
     final reponses = widget.questionData.reponses;
-    
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -64,7 +91,6 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 12),
-          // Affichage de l'image de la question | Non testé
           Image.network(
             'https://${AppConfig.apiBaseUrl}/public/images/${question.image}',
             height: 150,
@@ -73,6 +99,14 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             },
           ),
           const SizedBox(height: 24),
+
+          // ✅ Timer affiché ici
+          Text(
+            "Temps restant : $_timeLeft secondes",
+            style: const TextStyle(fontSize: 16, color: Colors.red),
+          ),
+          const SizedBox(height: 16),
+
           Expanded(
             child: ListView.builder(
               itemCount: reponses.length,
@@ -91,9 +125,10 @@ class _QuestionWidgetState extends State<QuestionWidget> {
           ),
           ElevatedButton(
             onPressed: () {
-                  final reponsesCochees = getReponsesSelect();
-                  widget.onNextWithReponses(reponsesCochees);
-                },
+              _timer?.cancel(); // Arrête le timer si l'utilisateur répond
+              final reponsesCochees = getReponsesSelect();
+              widget.onNextWithReponses(reponsesCochees);
+            },
             child: const Text("Question suivante"),
           ),
         ],

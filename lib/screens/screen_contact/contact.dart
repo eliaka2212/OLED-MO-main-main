@@ -3,8 +3,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 void _callPhoneNumber(String phoneNumber) async {
   final Uri launchUri = Uri(scheme: 'tel', path: phoneNumber);
-  if (await canLaunch(launchUri.toString())) {
-    await launch(launchUri.toString());
+
+  if (await canLaunchUrl(launchUri)) {
+    await launchUrl(launchUri);
   } else {
     throw 'Could not launch $phoneNumber';
   }

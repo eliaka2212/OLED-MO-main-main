@@ -35,7 +35,7 @@ class _InscriptionState extends State<Inscription> {
 
       try {
         final url = Uri.parse(
-          'https://ton-backend.com/api/inscription',
+          'http://192.168.109.10/api/register',
         ); // <-- Remplace par ton URL API
 
         final response = await http.post(
@@ -130,12 +130,16 @@ class _InscriptionState extends State<Inscription> {
                 TextFormField(
                   decoration: InputDecoration(labelText: "Email"),
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value) =>
-                      value == null ||
-                          !value.contains('@') ||
-                          !value.contains('.')
-                      ? "Email invalide"
-                      : null,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Entrez votre adresse mail ";
+                    } else if (!RegExp(
+                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+                    ).hasMatch(value)) {
+                      return "veuillez saisir une adresse mail valide";
+                    }
+                    return null;
+                  },
                   onSaved: (value) => email = value!,
                 ),
                 SizedBox(height: 16),
