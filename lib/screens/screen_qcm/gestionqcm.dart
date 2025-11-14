@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mobil_cds49/screens/screen_qcm/affichageqcm.dart';
+import 'package:mobil_cds49/screens/screen_score/score.dart';
+
+
 
 // Écran permettant de sélectionner le nombre de questions et la catégorie pour un QCM
 class CodeQCM extends StatefulWidget {
@@ -190,6 +193,18 @@ class _CodeQCMState extends State<CodeQCM> {
               },
               child: Text('Valider'),
             ),
+             SizedBox(height: 50),
+
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Score()),
+                  );
+                },
+                child: const Text('Voir les scores précédents'),
+              ),
+
           ],
         ),
       ),

@@ -1,3 +1,5 @@
+
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mobil_cds49/services/api/config.dart';
@@ -12,6 +14,7 @@ class ScoreApi {
   }
   final url = Uri.parse('${AppConfig.apiBaseUrl}/api/fin-test');  
   try {
+    print("a");
     final response = await http.post(
       url,
       headers: {
@@ -24,6 +27,7 @@ class ScoreApi {
         'nbquestions': nbQuestions,
       }),
     );    
+    print("b");
     
     return response.statusCode; 
           
