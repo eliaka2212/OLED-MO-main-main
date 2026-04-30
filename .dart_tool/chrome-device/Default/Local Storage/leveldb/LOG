@@ -1,24 +1,19 @@
-2025/11/07-16:49:18.604 66bc Reusing MANIFEST C:\Users\djech\AppData\Local\Temp\flutter_tools.f55a0876\flutter_tools_chrome_device.d33016ff\Default\Local Storage\leveldb/MANIFEST-000001
-2025/11/07-16:49:18.606 66bc Recovering log #21
-2025/11/07-16:49:18.609 66bc Reusing old log C:\Users\djech\AppData\Local\Temp\flutter_tools.f55a0876\flutter_tools_chrome_device.d33016ff\Default\Local Storage\leveldb/000021.log 
-2025/11/07-16:49:18.611 66bc Delete type=0 #3
-2025/11/07-16:49:18.611 66bc Delete type=2 #5
-2025/11/07-16:49:18.611 66bc Delete type=2 #7
-2025/11/07-16:49:18.611 66bc Delete type=2 #9
-2025/11/07-16:49:18.611 66bc Delete type=2 #11
-2025/11/07-16:49:18.611 66bc Delete type=0 #12
-2025/11/07-16:49:18.611 66bc Delete type=2 #17
-2025/11/07-16:49:18.611 66bc Delete type=0 #18
-2025/11/07-16:49:18.611 66bc Delete type=2 #19
-2025/11/07-16:49:18.611 66bc Delete type=2 #22
-2025/11/07-16:52:30.295 66bc Level-0 table #24: started
-2025/11/07-16:52:30.300 66bc Level-0 table #24: 32157 bytes OK
-2025/11/07-16:52:30.302 66bc Delete type=0 #21
-2025/11/07-16:52:30.304 66bc Compacting 4@0 + 0@1 files
-2025/11/07-16:52:30.308 66bc Generated table #25@0: 33 keys, 26515 bytes
-2025/11/07-16:52:30.308 66bc Compacted 4@0 + 0@1 files => 26515 bytes
-2025/11/07-16:52:30.308 66bc compacted to: files[ 0 1 0 0 0 0 0 ]
-2025/11/07-16:52:30.309 66bc Delete type=2 #3
-2025/11/07-16:52:30.309 66bc Delete type=2 #4
-2025/11/07-16:52:30.309 66bc Delete type=2 #13
-2025/11/07-16:52:30.309 66bc Delete type=2 #24
+2026/01/11-19:43:02.548 f3c Reusing MANIFEST C:\Users\djech\AppData\Local\Temp\flutter_tools.fe2b7e10\flutter_tools_chrome_device.97f7ed2d\Default\Local Storage\leveldb/MANIFEST-000001
+2026/01/11-19:43:02.552 f3c Recovering log #33
+2026/01/11-19:43:02.558 f3c Reusing old log C:\Users\djech\AppData\Local\Temp\flutter_tools.fe2b7e10\flutter_tools_chrome_device.97f7ed2d\Default\Local Storage\leveldb/000033.log 
+2026/01/11-19:43:02.563 f3c Delete type=2 #3
+2026/01/11-19:43:02.563 f3c Delete type=0 #3
+2026/01/11-19:43:02.563 f3c Delete type=2 #4
+2026/01/11-19:43:02.563 f3c Delete type=2 #5
+2026/01/11-19:43:02.563 f3c Delete type=2 #7
+2026/01/11-19:43:02.563 f3c Delete type=2 #9
+2026/01/11-19:43:02.563 f3c Delete type=2 #11
+2026/01/11-19:43:02.563 f3c Delete type=0 #12
+2026/01/11-19:43:02.563 f3c Delete type=2 #13
+2026/01/11-19:43:02.563 f3c Delete type=2 #17
+2026/01/11-19:43:02.563 f3c Delete type=0 #18
+2026/01/11-19:43:02.563 f3c Delete type=2 #19
+2026/01/11-19:43:02.564 f3c Delete type=0 #21
+2026/01/11-19:43:02.564 f3c Delete type=2 #22
+2026/01/11-19:43:02.564 f3c Delete type=0 #23
+2026/01/11-19:43:02.564 f3c Delete type=2 #25
