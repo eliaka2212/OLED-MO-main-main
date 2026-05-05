@@ -42,13 +42,16 @@ class ScoreApi {
 
   static Future<List<dynamic>> getScores() async {
     final token = await GestionToken.getToken();
-    if (token == null || token.isEmpty) return [];
+    if (token == null || token.isEmpty) {
+      throw Exception('Token introuvable. Veuillez vous reconnecter.');
+    }
 
     String baseUrl = AppConfig.apiBaseUrl.endsWith('/')
         ? AppConfig.apiBaseUrl.substring(0, AppConfig.apiBaseUrl.length - 1)
         : AppConfig.apiBaseUrl;
 
-    final url = Uri.parse('$baseUrl/api/mes-scores');
+    final url = Uri.parse('$baseUrl/api/scores');
+    print('Récupération des scores depuis $url');
 
     try {
       final response = await http.get(
@@ -60,16 +63,48 @@ class ScoreApi {
         },
       );
 
-      if (response.statusCode == 200) {
-        final List<dynamic> data = jsonDecode(response.body);
-        return data;
-      } else {
-        print("Erreur récupération scores : ${response.statusCode}");
-        return [];
+      print('Réponse scores ${response.statusCode}: ${response.body}');
+
+      if (response.statusCode != 200) {
+        throw Exception('Erreur récupération scores ${response.statusCode}');
       }
+
+      final decoded = jsonDecode(response.body);
+      if (decoded is List<dynamic>) {
+        return decoded;
+      }
+
+      if (decoded is Map<String, dynamic>) {
+        if (decoded['scores'] is List<dynamic>) {
+          return decoded['scores'] as List<dynamic>;
+        }
+        if (decoded['data'] is List<dynamic>) {
+          return decoded['data'] as List<dynamic>;
+        }
+        if (decoded['data'] is Map<String, dynamic>) {
+          final data = decoded['data'] as Map<String, dynamic>;
+          if (data['scores'] is List<dynamic>) {
+            return data['scores'] as List<dynamic>;
+          }
+          if (data['items'] is List<dynamic>) {
+            return data['items'] as List<dynamic>;
+          }
+        }
+        if (decoded['items'] is List<dynamic>) {
+          return decoded['items'] as List<dynamic>;
+        }
+        if (decoded['history'] is List<dynamic>) {
+          return decoded['history'] as List<dynamic>;
+        }
+        if (decoded.containsKey('score')) {
+          return [decoded];
+        }
+      }
+
+      throw Exception('Format de réponse inattendu pour les scores');
     } catch (e) {
-      print("Erreur connection API (getScores) : $e");
-      return [];
+      print('Erreur connection API (getScores) : $e');
+      rethrow;
     }
   }
 }

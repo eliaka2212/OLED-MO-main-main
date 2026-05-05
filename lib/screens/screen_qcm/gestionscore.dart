@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobil_cds49/main.dart';
 import 'package:mobil_cds49/services/api/gestionScore/score_api.dart';
+import 'package:mobil_cds49/screens/screen_score/score.dart';
 
 class GestionScore extends StatefulWidget {
   final int nbQuestionsTotal;
@@ -34,6 +35,12 @@ class _GestionScoreState extends State<GestionScore> {
     );
   }
 
+  void _voirScoresPrecedents() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const Score()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,15 +62,31 @@ class _GestionScoreState extends State<GestionScore> {
               ),
             ),
             const SizedBox(height: 50),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-              ),
-              onPressed: _retourAccueil,
-              child: const Text(
-                'Retour à l\'accueil',
-                style: TextStyle(fontSize: 18),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  ),
+                  onPressed: _voirScoresPrecedents,
+                  child: const Text(
+                    'Voir mes scores précédents',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+                const SizedBox(width: 20),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  ),
+                  onPressed: _retourAccueil,
+                  child: const Text(
+                    'Retour à l\'accueil',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

@@ -27,10 +27,29 @@ class Score extends StatelessWidget {
             itemCount: scores.length,
             itemBuilder: (context, index) {
               final item = scores[index];
-              final score = item['score'] ?? 0;
-              final nbQuestions = item['nbquestions'] ?? 0;
-              // Tentative de récupération de la date sous différents formats possibles
-              final dateStr = item['date'] ?? item['created_at'] ?? item['createdAt'] ?? '';
+              final itemMap = item is Map<String, dynamic> ? item : <String, dynamic>{};
+              final score = itemMap['score']
+                  ?? itemMap['scoreRealise']
+                  ?? itemMap['score_realise']
+                  ?? itemMap['score_total']
+                  ?? itemMap['scoreTotal']
+                  ?? 0;
+              final nbQuestions = itemMap['nbquestions']
+                  ?? itemMap['nbQuestions']
+                  ?? itemMap['nb_questions']
+                  ?? itemMap['total_questions']
+                  ?? itemMap['nbQuestionsTotal']
+                  ?? 0;
+              final dateStr = itemMap['dateresultat']
+                  ?? itemMap['dateresultat']
+                  ?? itemMap['dateresult']
+                  ?? itemMap['date']
+                  ?? itemMap['created_at']
+                  ?? itemMap['createdAt']
+                  ?? itemMap['date_created']
+                  ?? itemMap['timestamp']
+                  ?? '';
+              final categorie = itemMap['categorie'] ?? itemMap['category'];
               
               return Card(
                 margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -40,9 +59,10 @@ class Score extends StatelessWidget {
                     'Score : $score / $nbQuestions',
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
+                  subtitle: categorie != null ? Text('Catégorie : $categorie') : null,
                   trailing: dateStr.toString().isNotEmpty 
                     ? Text(
-                        dateStr.toString().split('T')[0], // Affiche seulement la date YYYY-MM-DD si format ISO
+                        dateStr.toString().split(' ')[0],
                         style: const TextStyle(color: Colors.grey),
                       ) 
                     : null,
